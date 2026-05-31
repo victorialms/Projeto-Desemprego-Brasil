@@ -27,24 +27,24 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ESTILO CSS CUSTOMIZADO 
+# ESTILO CSS CUSTOMIZADO
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown(
     """
     <style>
         /* Cabeçalho Principal Maximizado */
         .main-title {
-            font-size: 20px;
+            font-size: 5.5rem;
             font-weight: 900;
             color: #4A148C;
             margin-top: -1rem;
             margin-bottom: 0.2rem;
             text-shadow: 2px 2px 4px rgba(74, 20, 140, 0.15);
             letter-spacing: -0.03em;
-            line-height: 1.15;
+            line-height: 1.05;
         }
         .sub-title {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             color: #7B1FA2;
             margin-bottom: 2rem;
             font-weight: 500;
@@ -184,7 +184,7 @@ st.markdown(
 # ─────────────────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    df = pd.read_csv("dados/simulacao__brasil.csv")
+    df = pd.read_csv("dados/simulacao_desemprego_brasil.csv")
     df["data"] = pd.to_datetime(df["data"])
     df["ano_trimestre"] = df["ano"].astype(str) + "-T" + df["trimestre"].astype(str)
     return df
@@ -993,3 +993,4 @@ st.markdown(
     "Análise de Dados com Python · Pandas · Matplotlib · Seaborn · Plotly · Streamlit</small></center>",
     unsafe_allow_html=True,
 )
+
