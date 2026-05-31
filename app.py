@@ -1,4 +1,3 @@
-```python
 # =============================================================================
 # PROJETO G2 — TEMA 4: Evolução do Desemprego no Brasil (2015–2024)
 # Dashboard Streamlit — app.py
@@ -951,4 +950,4 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-```
+
