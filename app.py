@@ -32,22 +32,23 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-        /* Cabeçalho Principal Maximizado */
         .main-title {
-            font-size: 5.5rem;
-            font-weight: 900;
-            color: #4A148C;
-            margin-top: -1rem;
-            margin-bottom: 0.2rem;
-            text-shadow: 2px 2px 4px rgba(74, 20, 140, 0.15);
-            letter-spacing: -0.03em;
-            line-height: 1.05;
+            font-size: 80px !important; 
+            font-weight: 900 !important;
+            color: #4A148C !important;
+            margin-top: -2rem !important;
+            margin-bottom: 0.5rem !important;
+            text-shadow: 3px 3px 6px rgba(74, 20, 140, 0.18) !important;
+            letter-spacing: -0.04em !important;
+            line-height: 1.05 !important;
+            display: block !important;
         }
         .sub-title {
-            font-size: 1.25rem;
-            color: #7B1FA2;
-            margin-bottom: 2rem;
-            font-weight: 500;
+            font-size: 20px !important;
+            color: #7B1FA2 !important;
+            margin-bottom: 2.5rem !important;
+            font-weight: 500 !important;
+            display: block !important;
         }
         
         /* Customização Estrita dos Filtros e Barra Lateral */
