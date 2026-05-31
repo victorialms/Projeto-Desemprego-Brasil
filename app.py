@@ -33,7 +33,7 @@ st.markdown(
     """
     <style>
         .main-title {
-            font-size: 80px !important; 
+            font-size: 50px !important; 
             font-weight: 900 !important;
             color: #4A148C !important;
             margin-top: -2rem !important;
