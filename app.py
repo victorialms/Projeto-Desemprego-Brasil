@@ -32,20 +32,60 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-        /* Cabeçalho Principal */
+        /* Cabeçalho Principal Maximizado */
         .main-title {
-            font-size: 3.2rem;
-            font-weight: 800;
+            font-size: 3.8rem;
+            font-weight: 900;
             color: #4A148C;
-            margin-bottom: 0.1rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            letter-spacing: -0.02em;
+            margin-top: -1rem;
+            margin-bottom: 0.2rem;
+            text-shadow: 2px 2px 4px rgba(74, 20, 140, 0.15);
+            letter-spacing: -0.03em;
+            line-height: 1.15;
         }
         .sub-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #7B1FA2;
             margin-bottom: 2rem;
+            font-weight: 500;
         }
+        
+        /* Customização Estrita dos Filtros e Barra Lateral */
+        [data-testid="stSidebar"] {
+            background-color: #FAF5FC;
+        }
+        [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+            color: #4A148C !important;
+        }
+        /* Cor dos textos de label dos filtros */
+        [data-testid="stSidebar"] label p {
+            color: #4A148C !important;
+            font-weight: 600 !important;
+        }
+        /* Customização das tags/pílulas selecionadas no Multiselect */
+        span[data-baseweb="tag"] {
+            background-color: #7B1FA2 !important;
+            color: white !important;
+            border-radius: 6px !important;
+        }
+        span[data-baseweb="tag"] button {
+            color: white !important;
+        }
+        /* Caixa interna dos seletores quando focados/abertos */
+        div[data-baseweb="select"] > div {
+            border-color: #BA68C8 !important;
+            box-shadow: 0 0 0 1px #7B1FA2 !important;
+        }
+        /* Ajuste do box de informação na barra lateral */
+        [data-testid="stSidebar"] .stAlert {
+            background-color: #F3E5F5 !important;
+            color: #4A148C !important;
+            border-left: 4px solid #7B1FA2 !important;
+        }
+        [data-testid="stSidebar"] .stAlert p {
+            color: #4A148C !important;
+        }
+
         /* KPI Cards */
         .kpi-container {
             background: linear-gradient(135deg, #4A148C 0%, #7B1FA2 100%);
@@ -77,6 +117,7 @@ st.markdown(
             opacity: 0.85;
             margin-top: 4px;
         }
+        
         /* Seções */
         .section-header {
             font-size: 1.4rem;
@@ -86,6 +127,7 @@ st.markdown(
             padding-left: 12px;
             margin: 35px 0 15px;
         }
+        
         /* Caixas de interpretação */
         .insight-box {
             background: #F3E5F5;
@@ -98,6 +140,7 @@ st.markdown(
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .insight-box b { color: #4A148C; }
+        
         /* Rodapé */
         .footer-box {
             background: #4A148C;
@@ -108,6 +151,7 @@ st.markdown(
             font-size: 0.95rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+        
         /* Alerta de risco crítico */
         .alerta-critico {
             background: #FFEBEE;
@@ -118,15 +162,17 @@ st.markdown(
             color: #C62828;
             margin-top: 10px;
         }
-        /* Ajustes finos do Streamlit */
+        
+        /* Botão de download customizado */
         .stButton>button {
-            background-color: #7B1FA2;
-            color: white;
-            border-radius: 8px;
+            background-color: #7B1FA2 !important;
+            color: white !important;
+            border-radius: 8px !important;
+            border: none !important;
         }
         .stButton>button:hover {
-            background-color: #4A148C;
-            color: white;
+            background-color: #4A148C !important;
+            color: white !important;
         }
     </style>
     """,
@@ -387,7 +433,7 @@ with col_g2:
         markers=True,
         labels={"ano": "Ano", "taxa_media": "Taxa (%)", "regiao": "Região"},
         title="Taxa de Desemprego por Região (anual)",
-        color_discrete_sequence=px.colors.sequential.Aquadro if hasattr(px.colors.sequential, 'Aquadro') else ["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
+        color_discrete_sequence=["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
     )
     fig_reg_linha.update_layout(
         plot_bgcolor="white",
@@ -428,7 +474,6 @@ with col_r1:
         .sort_values("taxa_media", ascending=False)
     )
 
-    # Cores personalizadas na paleta roxa/magenta/vinho para as regiões
     cores_regioes = {
         "Norte": "#4A148C",
         "Nordeste": "#7B1FA2",
@@ -482,8 +527,8 @@ st.markdown(
     """<div class="insight-box">
     📌 <b>Interpretação:</b> Norte e Nordeste concentram as maiores taxas médias de desemprego, 
     associadas a menor diversificação econômica e infraestrutura produtiva. 
-    A região Sul apresenta consistentemente as menores taxas, sustentada por um sector industrial 
-    e agroindustrial mais robusto. A dispersão elevada no Nordeste revela heterogeneidade interna 
+    A região Sul apresenta consistentemente as menores taxas, sustentada por um setor industrial 
+    e agroindustrial mais robusto. A disposição elevada no Nordeste revela heterogeneidade interna 
     significativa entre seus estados.
     </div>""",
     unsafe_allow_html=True,
@@ -545,7 +590,7 @@ with col_e2:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Pizza nível de risco com paleta degradê roxa
+    # Pizza nível de risco
     df_risco = df["nivel_risco"].value_counts().reset_index()
     df_risco.columns = ["Nível de Risco", "Registros"]
     cores_risco = {"Baixo": "#E1BEE7", "Médio": "#BA68C8", "Alto": "#9C27B0", "Crítico": "#4A148C"}
@@ -575,7 +620,6 @@ df_heat_pivot = df_heat.pivot(index="trimestre", columns="ano", values="taxa_med
 df_heat_pivot.index = [f"{i}º Tri" for i in df_heat_pivot.index]
 
 fig_heat, ax = plt.subplots(figsize=(14, 3.5))
-# Mudança para cmap="Purples" condizente com o novo visual
 sns.heatmap(
     df_heat_pivot,
     annot=True,
@@ -723,7 +767,7 @@ with col_s1:
         text="taxa_media",
         labels={"setor_predominante": "Setor", "taxa_media": "Taxa Média (%)"},
         title="Taxa Média de Desemprego por Setor Econômico",
-        color_discrete_sequence=px.colors.sequential.Aquadro if hasattr(px.colors.sequential, 'Aquadro') else ["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
+        color_discrete_sequence=["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
     )
     fig_setor.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
     fig_setor.update_layout(
@@ -750,7 +794,7 @@ with col_s2:
         markers=True,
         labels={"ano": "Ano", "taxa_media": "Taxa (%)", "setor_predominante": "Setor"},
         title="Evolução do Desemprego por Setor (anual)",
-        color_discrete_sequence=px.colors.sequential.Aquadro if hasattr(px.colors.sequential, 'Aquadro') else ["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
+        color_discrete_sequence=["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
     )
     fig_setor_linha.update_layout(
         plot_bgcolor="white",
@@ -856,7 +900,7 @@ with col_int1:
         )
     )
 
-    # Faixas de crise e recuperação com transparências roxas/vinhos
+    # Faixas de crise e recuperação
     eventos = [
         (2015, 2016, "rgba(123,31,162,0.12)", "Crise 2015–16"),
         (2020, 2021, "rgba(74,20,140,0.12)", "Pandemia 2020"),
@@ -949,5 +993,3 @@ st.markdown(
     "Análise de Dados com Python · Pandas · Matplotlib · Seaborn · Plotly · Streamlit</small></center>",
     unsafe_allow_html=True,
 )
-
-
