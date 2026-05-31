@@ -34,7 +34,7 @@ st.markdown(
     <style>
         /* Cabeçalho Principal Maximizado */
         .main-title {
-            font-size: 3.8rem;
+            font-size: 20px;
             font-weight: 900;
             color: #4A148C;
             margin-top: -1rem;
@@ -184,7 +184,7 @@ st.markdown(
 # ─────────────────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    df = pd.read_csv("dados/simulacao_desemprego_brasil.csv")
+    df = pd.read_csv("dados/simulacao__brasil.csv")
     df["data"] = pd.to_datetime(df["data"])
     df["ano_trimestre"] = df["ano"].astype(str) + "-T" + df["trimestre"].astype(str)
     return df
