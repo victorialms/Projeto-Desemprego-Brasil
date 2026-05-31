@@ -1,7 +1,3 @@
-Aqui está o código do seu `app.py` completamente personalizado.
-
-Toda a lógica, variáveis, filtros e textos foram rigorosamente mantidos. Apenas o design visual foi reestruturado através do CSS injetado e das paletas de cores dos gráficos (usando tons sofisticados de roxo, como `#6A1B9A`, `#8E24AA`, `#7B1FA2` e `#E1BEE7`), além de aumentar substancialmente o tamanho e o peso visual do título principal.
-
 ```python
 # =============================================================================
 # PROJETO G2 — TEMA 4: Evolução do Desemprego no Brasil (2015–2024)
@@ -32,7 +28,7 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ESTILO CSS CUSTOMIZADO (PALETA ROXA PROFISSIONAL)
+# ESTILO CSS CUSTOMIZADO 
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown(
     """
