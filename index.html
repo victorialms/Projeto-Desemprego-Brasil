@@ -12,15 +12,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --azul:      #1a3a5c;
-      --azul-med:  #2e6da4;
-      --azul-claro:#cce0f5;
-      --verde:     #2ecc71;
-      --vermelho:  #e74c3c;
-      --amarelo:   #f39c12;
-      --cinza:     #f4f7fb;
+      --azul:      #4A148C; 
+      --azul-med:  #7B1FA2; 
+      --azul-claro:#E1BEE7;
+      --verde:     #9C27B0; 
+      --vermelho:  #C62828; 
+      --amarelo:   #F57C00; 
+      --cinza:     #FAF5FC; 
       --branco:    #ffffff;
-      --texto:     #1a2a3a;
+      --texto:     #2A0845; 
     }
 
     body {
@@ -84,7 +84,7 @@
       text-decoration: none;
       transition: transform .15s, box-shadow .15s;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(74,20,140,.25); }
     .btn-primary { background: var(--verde); color: #fff; }
     .btn-secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.4); }
     .btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.4); }
@@ -92,7 +92,7 @@
     /* ── STATS ─────────────────────────────────────────────── */
     .stats-bar {
       background: var(--branco);
-      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      box-shadow: 0 2px 16px rgba(74,20,140,.06);
       padding: 30px 24px;
     }
     .stats-inner {
@@ -105,7 +105,7 @@
       background: linear-gradient(135deg,var(--azul),var(--azul-med));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .stat-lbl { font-size: 0.8rem; color: #6b7280; text-transform: uppercase; letter-spacing: .05em; }
+    .stat-lbl { font-size: 0.8rem; color: #8e95a5; text-transform: uppercase; letter-spacing: .05em; }
 
     /* ── SECTION ───────────────────────────────────────────── */
     section { padding: 70px 24px; max-width: 960px; margin: 0 auto; }
@@ -118,7 +118,7 @@
       font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800;
       color: var(--azul); margin-bottom: 16px;
     }
-    .section-desc { font-size: 1rem; color: #4b5563; max-width: 620px; }
+    .section-desc { font-size: 1rem; color: #5c4e66; max-width: 620px; }
 
     /* ── FEATURE CARDS ─────────────────────────────────────── */
     .cards {
@@ -128,14 +128,14 @@
     .card {
       background: var(--branco); border-radius: 14px;
       padding: 28px 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      box-shadow: 0 2px 12px rgba(74,20,140,.04);
       border-top: 4px solid var(--azul-med);
       transition: transform .15s, box-shadow .15s;
     }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.12); }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(74,20,140,.12); }
     .card-icon { font-size: 2rem; margin-bottom: 14px; }
     .card h3 { font-size: 1rem; font-weight: 700; color: var(--azul); margin-bottom: 8px; }
-    .card p { font-size: 0.88rem; color: #6b7280; }
+    .card p { font-size: 0.88rem; color: #786985; }
 
     /* ── KPI ROW ───────────────────────────────────────────── */
     .kpi-row {
@@ -145,6 +145,7 @@
     .kpi-card {
       background: linear-gradient(135deg,var(--azul),var(--azul-med));
       color: #fff; border-radius: 12px; padding: 22px 20px; text-align: center;
+      box-shadow: 0 4px 12px rgba(123, 31, 162, 0.15);
     }
     .kpi-card .val { font-size: 1.9rem; font-weight: 800; margin: 6px 0 4px; }
     .kpi-card .lbl { font-size: 0.74rem; opacity: .85; text-transform: uppercase; letter-spacing:.05em; }
@@ -158,7 +159,7 @@
       background: var(--branco); border: 1.5px solid var(--azul-claro);
       border-radius: 50px; padding: 8px 18px;
       font-size: 0.85rem; font-weight: 600; color: var(--azul);
-      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      box-shadow: 0 1px 6px rgba(74,20,140,.04);
     }
 
     /* ── ANÁLISES GRID ─────────────────────────────────────── */
@@ -169,7 +170,7 @@
     .analise-item {
       background: var(--branco); border-radius: 10px; padding: 16px 18px;
       border-left: 4px solid var(--azul-med);
-      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      box-shadow: 0 1px 6px rgba(74,20,140,.04);
       font-size: 0.88rem; color: var(--texto); font-weight: 500;
     }
     .analise-item span { color: var(--azul-med); font-weight: 700; margin-right: 6px; }
@@ -187,12 +188,12 @@
       border: 3px solid var(--branco);
       box-shadow: 0 0 0 3px var(--azul-med);
     }
-    .tl-dot.red  { box-shadow: 0 0 0 3px var(--vermelho); }
-    .tl-dot.green { box-shadow: 0 0 0 3px var(--verde); }
-    .tl-dot.yellow { box-shadow: 0 0 0 3px var(--amarelo); }
+    .tl-dot.red  { box-shadow: 0 0 0 3px var(--vermelho); background: var(--vermelho); }
+    .tl-dot.green { box-shadow: 0 0 0 3px var(--azul); background: var(--azul); }
+    .tl-dot.yellow { box-shadow: 0 0 0 3px var(--amarelo); background: var(--amarelo); }
     .tl-year { font-size: 0.78rem; font-weight: 700; color: var(--azul-med); text-transform: uppercase; letter-spacing: .08em; }
     .tl-title { font-size: 1rem; font-weight: 700; color: var(--azul); margin: 2px 0 4px; }
-    .tl-desc { font-size: 0.88rem; color: #6b7280; }
+    .tl-desc { font-size: 0.88rem; color: #786985; }
 
     /* ── CTA ───────────────────────────────────────────────── */
     .cta-section {
@@ -201,6 +202,7 @@
       padding: 60px 24px;
       border-radius: 20px;
       margin: 40px auto; max-width: 860px;
+      box-shadow: 0 10px 30px rgba(74, 20, 140, 0.2);
     }
     .cta-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
     .cta-section p { opacity: .85; margin-bottom: 28px; }
@@ -208,8 +210,8 @@
     /* ── FOOTER ────────────────────────────────────────────── */
     footer {
       text-align: center; padding: 30px 24px;
-      font-size: 0.82rem; color: #9ca3af;
-      border-top: 1px solid #e5e7eb;
+      font-size: 0.82rem; color: #b1a7b8;
+      border-top: 1px solid #ebdff2;
     }
 
     /* ── RESPONSIVE ────────────────────────────────────────── */
@@ -221,7 +223,6 @@
 </head>
 <body>
 
-<!-- ══ HERO ═══════════════════════════════════════════════════ -->
 <header class="hero">
   <div class="hero-badge">📊 Projeto G2 — Tema 4</div>
   <h1>Evolução do Desemprego<br>no Brasil (2015–2024)</h1>
@@ -245,7 +246,6 @@
   </div>
 </header>
 
-<!-- ══ STATS BAR ══════════════════════════════════════════════ -->
 <div class="stats-bar">
   <div class="stats-inner">
     <div>
@@ -275,7 +275,6 @@
   </div>
 </div>
 
-<!-- ══ SOBRE ══════════════════════════════════════════════════ -->
 <section>
   <div class="section-label">Sobre o Projeto</div>
   <h2 class="section-title">Entendendo o mercado de trabalho brasileiro através dos dados</h2>
@@ -320,7 +319,6 @@
   </div>
 </section>
 
-<!-- ══ KPIs ═══════════════════════════════════════════════════ -->
 <div style="background:var(--branco); padding: 60px 24px;">
 <section style="padding:0; max-width:960px; margin:0 auto;">
   <div class="section-label">Indicadores Principais</div>
@@ -355,7 +353,6 @@
 </section>
 </div>
 
-<!-- ══ ANÁLISES ═══════════════════════════════════════════════ -->
 <section>
   <div class="section-label">O que o Dashboard Responde</div>
   <h2 class="section-title">Perguntas Orientadoras</h2>
@@ -371,7 +368,6 @@
   </div>
 </section>
 
-<!-- ══ TECNOLOGIAS ════════════════════════════════════════════ -->
 <div style="background:var(--branco); padding: 60px 24px;">
 <section style="padding:0; max-width:960px; margin:0 auto;">
   <div class="section-label">Stack Tecnológico</div>
@@ -393,7 +389,6 @@
 </section>
 </div>
 
-<!-- ══ CRONOLOGIA ═════════════════════════════════════════════ -->
 <section>
   <div class="section-label">Cronologia Econômica</div>
   <h2 class="section-title">Principais Eventos do Período</h2>
@@ -425,7 +420,6 @@
   </div>
 </section>
 
-<!-- ══ CTA ════════════════════════════════════════════════════ -->
 <div style="padding: 0 24px;">
   <div class="cta-section">
     <h2>Explore o Dashboard Interativo</h2>
@@ -446,7 +440,6 @@
   </div>
 </div>
 
-<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
 <footer>
   <p>📊 Projeto G2 — Tema 4 | Evolução do Desemprego no Brasil (2015–2024)</p>
   <p style="margin-top:6px;">Desenvolvido com Python · Pandas · Matplotlib · Seaborn · Plotly · Streamlit</p>
