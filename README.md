@@ -86,12 +86,12 @@ venv\Scripts\activate          # Windows
 
 ### 3. Instale as dependências
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt OU py -m pip install -r requirements.txt
 ```
 
 ### 4. Execute o dashboard
 ```bash
-streamlit run app.py
+streamlit run app.py OU py -m streamlit run app.py
 ```
 
 O dashboard abrirá automaticamente em `http://localhost:8501`.
