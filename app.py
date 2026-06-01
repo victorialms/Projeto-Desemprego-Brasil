@@ -289,6 +289,8 @@ st.markdown(
 )
 st.markdown(
     """
+    > Desenvolvido por: Victoria Lacerda Mendonça Simeão
+    
     > O desemprego é um dos principais termômetros da saúde econômica de um país.
     > Este painel permite investigar a evolução das taxas de desemprego no Brasil,
     > identificar regiões e estados mais vulneráveis, analisar a relação com inflação e renda,
