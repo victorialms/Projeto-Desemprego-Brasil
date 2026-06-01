@@ -73,7 +73,7 @@ projeto-desemprego-brasil/
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/SEU_USUARIO/projeto-desemprego-brasil.git
+git clone https://github.com/victorialms/projeto-desemprego-brasil.git
 cd projeto-desemprego-brasil
 ```
 
