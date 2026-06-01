@@ -165,9 +165,9 @@ O dashboard abrirá automaticamente em `http://localhost:8501`.
 
 | Plataforma | Link |
 |---|---|
-| 📁 GitHub | [github.com/SEU_USUARIO/projeto-desemprego-brasil](#) |
-| 🌐 GitHub Pages | [SEU_USUARIO.github.io/projeto-desemprego-brasil](#) |
-| 📊 Streamlit Cloud | [projeto-desemprego.streamlit.app](#) |
+| 📁 GitHub | [https://github.com/victorialms/Projeto-Desemprego-Brasil](#) |
+| 🌐 GitHub Pages | [https://victorialms.github.io/Projeto-Desemprego-Brasil/](#) |
+| 📊 Streamlit Cloud | [https://projeto-desemprego-brasil.streamlit.app/](#) |
 
 ---
 
