@@ -22,8 +22,8 @@ O projeto foi desenvolvido como parte do **Projeto G2 — Tema 4**, com foco em:
 - Visualizações dinâmicas com Plotly, Matplotlib e Seaborn
 - Interpretação econômica dos resultados
 
+Disciplina: Linguagens de Programação
 Orientador: Alexandre Neves Louzada
-
 Projeto desenvolvido por: Victoria Lacerda Mendonça Simeão
 
 ---
