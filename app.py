@@ -16,6 +16,9 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
+# ─────────────────────────────────────────────────────────────────────────────
+# CONFIGURAÇÃO DA PÁGINA
+# ─────────────────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Desemprego no Brasil | Projeto G2",
     page_icon="📊",
@@ -23,234 +26,163 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ─────────────────────────────────────────────────────────────────────────────
+# ESTILO CSS CUSTOMIZADO
+# ─────────────────────────────────────────────────────────────────────────────
 st.markdown(
     """
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        html, body, [data-testid="stAppViewContainer"] {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--st-background-color, #FAF5FC);
-        }
-        
         .main-title {
-            font-size: 42px !important; 
-            font-weight: 800 !important;
+            font-size: 50px !important; 
+            font-weight: 900 !important;
             color: #4A148C !important;
-            margin-top: -2.5rem !important;
-            margin-bottom: 0.25rem !important;
-            letter-spacing: -0.03em !important;
-            line-height: 1.1 !important;
+            margin-top: -2rem !important;
+            margin-bottom: 0.5rem !important;
+            text-shadow: 3px 3px 6px rgba(74, 20, 140, 0.18) !important;
+            letter-spacing: -0.04em !important;
+            line-height: 1.05 !important;
             display: block !important;
         }
-        
         .sub-title {
-            font-size: 16px !important;
+            font-size: 20px !important;
             color: #7B1FA2 !important;
-            margin-bottom: 2rem !important;
-            font-weight: 400 !important;
+            margin-bottom: 2.5rem !important;
+            font-weight: 500 !important;
             display: block !important;
-            opacity: 0.9;
         }
         
+        /* Customização Estrita dos Filtros e Barra Lateral */
         [data-testid="stSidebar"] {
-            box-shadow: 2px 0 15px rgba(74, 20, 140, 0.04);
+            background-color: #FAF5FC;
         }
         [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
             color: #4A148C !important;
-            font-weight: 700 !important;
         }
-        
-        span[data-baseweb="tag"] {
-            background-color: #E1BEE7 !important;
+        /* Cor dos textos de label dos filtros */
+        [data-testid="stSidebar"] label p {
             color: #4A148C !important;
-            border-radius: 8px !important;
             font-weight: 600 !important;
-            padding: 4px 8px !important;
+        }
+        /* Customização das tags/pílulas selecionadas no Multiselect */
+        span[data-baseweb="tag"] {
+            background-color: #7B1FA2 !important;
+            color: white !important;
+            border-radius: 6px !important;
         }
         span[data-baseweb="tag"] button {
+            color: white !important;
+        }
+        /* Caixa interna dos seletores quando focados/abertos */
+        div[data-baseweb="select"] > div {
+            border-color: #BA68C8 !important;
+            box-shadow: 0 0 0 1px #7B1FA2 !important;
+        }
+        /* Ajuste do box de informação na barra lateral */
+        [data-testid="stSidebar"] .stAlert {
+            background-color: #F3E5F5 !important;
+            color: #4A148C !important;
+            border-left: 4px solid #7B1FA2 !important;
+        }
+        [data-testid="stSidebar"] .stAlert p {
             color: #4A148C !important;
         }
-        
-        div[data-baseweb="select"] > div {
-            border-radius: 10px !important;
-        }
-        
+
+        /* KPI Cards */
         .kpi-container {
-            background: var(--kpi-bg, #ffffff);
-            border-radius: 18px;
-            padding: 24px 20px;
-            color: var(--kpi-text, #2A0845);
+            background: linear-gradient(135deg, #4A148C 0%, #7B1FA2 100%);
+            border-radius: 14px;
+            padding: 20px 22px;
+            color: white;
             text-align: center;
-            box-shadow: var(--kpi-shadow, 0 4px 20px rgba(74, 20, 140, 0.04));
-            border: 1px solid var(--kpi-border, rgba(74, 20, 140, 0.02));
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
+            box-shadow: 0 6px 16px rgba(123, 31, 162, 0.2);
+            transition: transform 0.2s;
         }
         .kpi-container:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--kpi-shadow-hover, 0 12px 30px rgba(74, 20, 140, 0.08));
-            border-color: #E1BEE7;
+            transform: translateY(-2px);
         }
         .kpi-value {
             font-size: 2.2rem;
             font-weight: 800;
-            margin: 12px 0 4px;
-            background: linear-gradient(135deg, #4A148C 0%, #7B1FA2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+            margin: 6px 0 2px;
+            color: #FFFFFF;
         }
         .kpi-label {
-            font-size: 0.75rem;
-            color: var(--kpi-label-color, #6B517F);
+            font-size: 0.8rem;
+            opacity: 0.9;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 700;
+            letter-spacing: 0.06em;
+            font-weight: 600;
         }
         .kpi-sub {
-            font-size: 0.8rem;
-            color: var(--kpi-sub-color, #6B517F);
-            opacity: 0.8;
+            font-size: 0.85rem;
+            opacity: 0.85;
+            margin-top: 4px;
         }
         
+        /* Seções */
         .section-header {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.4rem;
+            font-weight: 700;
             color: #4A148C;
-            margin: 45px 0 20px;
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
+            border-left: 5px solid #9C27B0;
+            padding-left: 12px;
+            margin: 35px 0 15px;
         }
         
+        /* Caixas de interpretação */
         .insight-box {
-            background: var(--insight-bg, #ffffff);
-            border: 1px solid var(--insight-border, rgba(123, 31, 162, 0.08));
-            border-radius: 16px;
-            padding: 20px 24px;
+            background: #F3E5F5;
+            border-left: 4px solid #8E24AA;
+            border-radius: 0 10px 10px 0;
+            padding: 14px 18px;
             font-size: 0.95rem;
-            color: var(--insight-text, #2A0845);
-            margin-top: 20px;
-            box-shadow: var(--insight-shadow, 0 4px 15px rgba(74, 20, 140, 0.02));
-            line-height: 1.6;
+            color: #4A148C;
+            margin-top: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
-        .insight-box b { color: #7B1FA2; }
+        .insight-box b { color: #4A148C; }
         
+        /* Rodapé */
         .footer-box {
-            background: linear-gradient(135deg, #4A148C 0%, #7B1FA2 100%);
-            color: #FFFFFF;
-            border-radius: 20px;
-            padding: 40px;
-            margin-top: 50px;
-            font-size: 1rem;
-            box-shadow: 0 15px 35px rgba(74, 20, 140, 0.15);
-            line-height: 1.7;
+            background: #4A148C;
+            color: #E1BEE7;
+            border-radius: 12px;
+            padding: 22px 26px;
+            margin-top: 35px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .footer-box b { color: #E1BEE7; }
         
+        /* Alerta de risco crítico */
+        .alerta-critico {
+            background: #FFEBEE;
+            border-left: 4px solid #C62828;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            font-size: 0.92rem;
+            color: #C62828;
+            margin-top: 10px;
+        }
+        
+        /* Botão de download customizado */
         .stButton>button {
             background-color: #7B1FA2 !important;
             color: white !important;
-            border-radius: 10px !important;
+            border-radius: 8px !important;
             border: none !important;
-            padding: 10px 24px !important;
-            font-weight: 600 !important;
-            transition: all 0.2s !important;
-            box-shadow: 0 4px 12px rgba(123, 31, 162, 0.15) !important;
         }
         .stButton>button:hover {
             background-color: #4A148C !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 6px 18px rgba(74, 20, 140, 0.25) !important;
-        }
-
-        [data-testid="stBlock"] {
-            background: transparent;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --st-background-color: #0F021A;
-                --kpi-bg: #1A0B2E;
-                --kpi-text: #F3E5F5;
-                --kpi-border: rgba(225, 190, 231, 0.05);
-                --kpi-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                --kpi-shadow-hover: 0 12px 30px rgba(123, 31, 162, 0.15);
-                --kpi-label-color: #BA68C8;
-                --kpi-sub-color: #A1887F;
-                
-                --insight-bg: #1A0B2E;
-                --insight-text: #E1BEE7;
-                --insight-border: rgba(123, 31, 162, 0.2);
-                --insight-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            }
-            .main-title {
-                color: #E1BEE7 !important;
-                text-shadow: 0 2px 10px rgba(225, 190, 231, 0.1);
-            }
-            .sub-title {
-                color: #BA68C8 !important;
-            }
-            .section-header {
-                color: #E1BEE7 !important;
-            }
-            [data-testid="stSidebar"] {
-                background-color: #140724 !important;
-                border-right: 1px solid rgba(225, 190, 231, 0.05) !important;
-            }
-            [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
-                color: #E1BEE7 !important;
-            }
-            [data-testid="stSidebar"] label p {
-                color: #E1BEE7 !important;
-            }
-            div[data-baseweb="select"] > div {
-                border-color: rgba(186, 104, 184, 0.2) !important;
-                background-color: #1A0B2E !important;
-            }
-            div[data-testid="stDataFrame"] {
-                background: #1A0B2E !important;
-                border: 1px solid rgba(225, 190, 231, 0.05) !important;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
-            }
-        }
-        
-        @media (prefers-color-scheme: light) {
-            :root {
-                --st-background-color: #FAF5FC;
-                --kpi-bg: #ffffff;
-                --kpi-text: #2A0845;
-                --kpi-border: rgba(74, 20, 140, 0.02);
-                --kpi-shadow: 0 4px 20px rgba(74, 20, 140, 0.04);
-                --kpi-shadow-hover: 0 12px 30px rgba(74, 20, 140, 0.08);
-                --kpi-label-color: #6B517F;
-                --kpi-sub-color: #6B517F;
-                
-                --insight-bg: #ffffff;
-                --insight-text: #2A0845;
-                --insight-border: rgba(123, 31, 162, 0.08);
-                --insight-shadow: 0 4px 15px rgba(74, 20, 140, 0.02);
-            }
-            [data-testid="stSidebar"] {
-                background-color: #ffffff !important;
-            }
-            div[data-baseweb="select"] > div {
-                background-color: #FAF5FC !important;
-            }
-            div[data-testid="stDataFrame"] {
-                background: #ffffff !important;
-            }
+            color: white !important;
         }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-
+# ─────────────────────────────────────────────────────────────────────────────
+# CARREGAMENTO E CACHE DOS DADOS
+# ─────────────────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
     df = pd.read_csv("dados/simulacao_desemprego_brasil.csv")
@@ -261,10 +193,16 @@ def load_data():
 
 df_full = load_data()
 
-st.sidebar.image("https://img.icons8.com/color/96/bar-chart.png", width=55)
+# ─────────────────────────────────────────────────────────────────────────────
+# BARRA LATERAL — FILTROS INTERATIVOS
+# ─────────────────────────────────────────────────────────────────────────────
+st.sidebar.image(
+    "https://img.icons8.com/color/96/bar-chart.png", width=60
+)
 st.sidebar.title("🎛️ Filtros Interativos")
 st.sidebar.markdown("---")
 
+# Filtro de Ano
 anos_disponiveis = sorted(df_full["ano"].unique())
 anos_sel = st.sidebar.multiselect(
     "📅 Ano",
@@ -272,12 +210,8 @@ anos_sel = st.sidebar.multiselect(
     default=anos_disponiveis,
 )
 
-trim_labels = {
-    1: "1º Trimestre",
-    2: "2º Trimestre",
-    3: "3º Trimestre",
-    4: "4º Trimestre",
-}
+# Filtro de Trimestre
+trim_labels = {1: "1º Trimestre", 2: "2º Trimestre", 3: "3º Trimestre", 4: "4º Trimestre"}
 trims_disponiveis = sorted(df_full["trimestre"].unique())
 trims_sel = st.sidebar.multiselect(
     "🗓️ Trimestre",
@@ -286,6 +220,7 @@ trims_sel = st.sidebar.multiselect(
     default=trims_disponiveis,
 )
 
+# Filtro de Região
 regioes_disponiveis = sorted(df_full["regiao"].unique())
 regioes_sel = st.sidebar.multiselect(
     "🗺️ Região",
@@ -293,15 +228,15 @@ regioes_sel = st.sidebar.multiselect(
     default=regioes_disponiveis,
 )
 
-ufs_disponiveis = sorted(
-    df_full[df_full["regiao"].isin(regioes_sel)]["uf"].unique()
-)
+# Filtro de Estado
+ufs_disponiveis = sorted(df_full[df_full["regiao"].isin(regioes_sel)]["uf"].unique())
 ufs_sel = st.sidebar.multiselect(
     "📍 Estado (UF)",
     options=ufs_disponiveis,
     default=ufs_disponiveis,
 )
 
+# Filtro de Setor
 setores_disponiveis = sorted(df_full["setor_predominante"].unique())
 setores_sel = st.sidebar.multiselect(
     "🏭 Setor Econômico",
@@ -309,10 +244,9 @@ setores_sel = st.sidebar.multiselect(
     default=setores_disponiveis,
 )
 
+# Filtro de Nível de Risco
 niveis_ordem = ["Baixo", "Médio", "Alto", "Crítico"]
-niveis_disponiveis = [
-    n for n in niveis_ordem if n in df_full["nivel_risco"].unique()
-]
+niveis_disponiveis = [n for n in niveis_ordem if n in df_full["nivel_risco"].unique()]
 niveis_sel = st.sidebar.multiselect(
     "⚠️ Nível de Risco",
     options=niveis_disponiveis,
@@ -325,6 +259,9 @@ st.sidebar.info(
     "estado, setor ou nível de risco."
 )
 
+# ─────────────────────────────────────────────────────────────────────────────
+# APLICAÇÃO DOS FILTROS
+# ─────────────────────────────────────────────────────────────────────────────
 df = df_full[
     df_full["ano"].isin(anos_sel)
     & df_full["trimestre"].isin(trims_sel)
@@ -335,33 +272,38 @@ df = df_full[
 ].copy()
 
 if df.empty:
-    st.warning(
-        "⚠️ Nenhum dado encontrado para os filtros selecionados. Ajuste os filtros na barra lateral."
-    )
+    st.warning("⚠️ Nenhum dado encontrado para os filtros selecionados. Ajuste os filtros na barra lateral.")
     st.stop()
 
+# ─────────────────────────────────────────────────────────────────────────────
+# CABEÇALHO PRINCIPAL
+# ─────────────────────────────────────────────────────────────────────────────
 st.markdown(
     '<p class="main-title">📊 Evolução do Desemprego no Brasil — 2015 a 2024</p>',
     unsafe_allow_html=True,
 )
 st.markdown(
     '<p class="sub-title">Dashboard analítico interativo | Projeto G2 — Tema 4 | '
-    f"Exibindo <b>{len(df):,}</b> registros filtrados de <b>{len(df_full):,}</b> totais</p>",
+    f'Exibindo <b>{len(df):,}</b> registros filtrados de <b>{len(df_full):,}</b> totais</p>',
     unsafe_allow_html=True,
 )
 st.markdown(
     """
     > Desenvolvido por: Victoria Lacerda Mendonça Simeão
-    > 
-    > O desemprego é um dos principais termômetros da saúde econômica de um país. Este painel permite investigar a evolução das taxas de desemprego no Brasil, identificar regiões e estados mais vulneráveis, analisar a relação com inflação e renda, e compreender padrões sazonais entre 2015 e 2024.
+    
+    > O desemprego é um dos principais termômetros da saúde econômica de um país.
+    > Este painel permite investigar a evolução das taxas de desemprego no Brasil,
+    > identificar regiões e estados mais vulneráveis, analisar a relação com inflação e renda,
+    > e compreender padrões sazonais entre 2015 e 2024.
     """
 )
 
-st.markdown(
-    '<p class="section-header">🔑 Indicadores-Chave de Desempenho (KPIs)</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# KPIs — INDICADORES-CHAVE
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">🔑 Indicadores-Chave de Desempenho (KPIs)</p>', unsafe_allow_html=True)
 
+# Cálculos dos KPIs
 taxa_media = df["taxa_desemprego"].mean()
 total_desempregados = df["desempregados"].sum()
 uf_maior = df.groupby("uf")["taxa_desemprego"].mean().idxmax()
@@ -435,22 +377,21 @@ with col6:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-st.markdown(
-    '<p class="section-header">📈 1. Evolução Temporal da Taxa de Desemprego</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. EVOLUÇÃO TEMPORAL DO DESEMPREGO
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">📈 1. Evolução Temporal da Taxa de Desemprego</p>', unsafe_allow_html=True)
 
 col_g1, col_g2 = st.columns([3, 2])
 
 with col_g1:
+    # Linha temporal por ano/trimestre (média nacional)
     df_temporal = (
         df.groupby(["ano", "trimestre"])
         .agg(taxa_media=("taxa_desemprego", "mean"))
         .reset_index()
     )
-    df_temporal["periodo"] = (
-        df_temporal["ano"].astype(str) + "-T" + df_temporal["trimestre"].astype(str)
-    )
+    df_temporal["periodo"] = df_temporal["ano"].astype(str) + "-T" + df_temporal["trimestre"].astype(str)
     df_temporal = df_temporal.sort_values(["ano", "trimestre"])
 
     fig_linha = px.line(
@@ -465,9 +406,9 @@ with col_g1:
     fig_linha.update_traces(line_width=2.5, marker_size=7)
     fig_linha.update_layout(
         xaxis_tickangle=-45,
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(size=12, family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+        font=dict(size=12),
         title_font_size=14,
         height=380,
     )
@@ -481,6 +422,7 @@ with col_g1:
     st.plotly_chart(fig_linha, use_container_width=True)
 
 with col_g2:
+    # Evolução por região ao longo dos anos
     df_reg_ano = (
         df.groupby(["ano", "regiao"])
         .agg(taxa_media=("taxa_desemprego", "mean"))
@@ -494,18 +436,11 @@ with col_g2:
         markers=True,
         labels={"ano": "Ano", "taxa_media": "Taxa (%)", "regiao": "Região"},
         title="Taxa de Desemprego por Região (anual)",
-        color_discrete_sequence=[
-            "#4A148C",
-            "#7B1FA2",
-            "#9C27B0",
-            "#BA68C8",
-            "#E1BEE7",
-        ],
+        color_discrete_sequence=["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
     )
     fig_reg_linha.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=380,
         title_font_size=14,
         legend=dict(orientation="h", yanchor="bottom", y=-0.35),
@@ -523,10 +458,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown(
-    '<p class="section-header">🗺️ 2. Comparação entre Regiões</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. COMPARAÇÃO REGIONAL
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">🗺️ 2. Comparação entre Regiões</p>', unsafe_allow_html=True)
 
 col_r1, col_r2 = st.columns(2)
 
@@ -560,14 +495,11 @@ with col_r1:
         labels={"regiao": "Região", "taxa_media": "Taxa Média (%)"},
         title="Taxa Média de Desemprego por Região",
     )
-    fig_bar_regiao.update_traces(
-        texttemplate="%{text:.1f}%", textposition="outside"
-    )
+    fig_bar_regiao.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
     fig_bar_regiao.update_layout(
         showlegend=False,
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=380,
         title_font_size=14,
         yaxis=dict(range=[0, df_regiao["taxa_media"].max() * 1.25]),
@@ -575,6 +507,7 @@ with col_r1:
     st.plotly_chart(fig_bar_regiao, use_container_width=True)
 
 with col_r2:
+    # Boxplot por região
     fig_box = px.box(
         df,
         x="regiao",
@@ -586,9 +519,8 @@ with col_r2:
     )
     fig_box.update_layout(
         showlegend=False,
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=380,
         title_font_size=14,
     )
@@ -598,17 +530,17 @@ st.markdown(
     """<div class="insight-box">
     📌 <b>Interpretação:</b> Norte e Nordeste concentram as maiores taxas médias de desemprego, 
     associadas a menor diversificação econômica e infraestrutura produtiva. 
-    A região Sul apresenta consistentemente as menores taxas, sustentada por um sector industrial 
+    A região Sul apresenta consistentemente as menores taxas, sustentada por um setor industrial 
     e agroindustrial mais robusto. A disposição elevada no Nordeste revela heterogeneidade interna 
     significativa entre seus estados.
     </div>""",
     unsafe_allow_html=True,
 )
 
-st.markdown(
-    '<p class="section-header">📍 3. Ranking e Comparação entre Estados</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. COMPARAÇÃO ENTRE ESTADOS
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">📍 3. Ranking e Comparação entre Estados</p>', unsafe_allow_html=True)
 
 col_e1, col_e2 = st.columns([3, 2])
 
@@ -633,9 +565,8 @@ with col_e1:
     )
     fig_bar_uf.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
     fig_bar_uf.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=520,
         title_font_size=14,
         xaxis=dict(range=[0, df_uf["taxa_media"].max() * 1.22]),
@@ -644,13 +575,12 @@ with col_e1:
     st.plotly_chart(fig_bar_uf, use_container_width=True)
 
 with col_e2:
+    # Top 5 mais críticos e top 5 melhores
     df_uf_rank = df_uf.sort_values("taxa_media", ascending=False)
     st.markdown("**🔴 Top 5 — Maior Desemprego**")
     top5_criticos = df_uf_rank.head(5)[["uf", "regiao", "taxa_media"]].copy()
     top5_criticos.columns = ["UF", "Região", "Taxa Média (%)"]
-    top5_criticos["Taxa Média (%)"] = top5_criticos["Taxa Média (%)"].map(
-        "{:.1f}%".format
-    )
+    top5_criticos["Taxa Média (%)"] = top5_criticos["Taxa Média (%)"].map("{:.1f}%".format)
     st.dataframe(top5_criticos, use_container_width=True, hide_index=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -658,21 +588,15 @@ with col_e2:
     top5_melhores = df_uf_rank.tail(5)[["uf", "regiao", "taxa_media"]].copy()
     top5_melhores = top5_melhores.sort_values("taxa_media")
     top5_melhores.columns = ["UF", "Região", "Taxa Média (%)"]
-    top5_melhores["Taxa Média (%)"] = top5_melhores["Taxa Média (%)"].map(
-        "{:.1f}%".format
-    )
+    top5_melhores["Taxa Média (%)"] = top5_melhores["Taxa Média (%)"].map("{:.1f}%".format)
     st.dataframe(top5_melhores, use_container_width=True, hide_index=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # Pizza nível de risco
     df_risco = df["nivel_risco"].value_counts().reset_index()
     df_risco.columns = ["Nível de Risco", "Registros"]
-    cores_risco = {
-        "Baixo": "#E1BEE7",
-        "Médio": "#BA68C8",
-        "Alto": "#9C27B0",
-        "Crítico": "#4A148C",
-    }
+    cores_risco = {"Baixo": "#E1BEE7", "Médio": "#BA68C8", "Alto": "#9C27B0", "Crítico": "#4A148C"}
     fig_pizza = px.pie(
         df_risco,
         values="Registros",
@@ -682,32 +606,23 @@ with col_e2:
         title="Distribuição por Nível de Risco",
         hole=0.4,
     )
-    fig_pizza.update_layout(
-        height=290, title_font_size=13, font=dict(family="Inter")
-    )
+    fig_pizza.update_layout(height=290, title_font_size=13)
     st.plotly_chart(fig_pizza, use_container_width=True)
 
-st.markdown(
-    '<p class="section-header">🗓️ 4. Heatmap — Sazonalidade Trimestral do Desemprego</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. HEATMAP TRIMESTRAL
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">🗓️ 4. Heatmap — Sazonalidade Trimestral do Desemprego</p>', unsafe_allow_html=True)
 
 df_heat = (
     df.groupby(["ano", "trimestre"])
     .agg(taxa_media=("taxa_desemprego", "mean"))
     .reset_index()
 )
-df_heat_pivot = df_heat.pivot(
-    index="trimestre", columns="ano", values="taxa_media"
-)
+df_heat_pivot = df_heat.pivot(index="trimestre", columns="ano", values="taxa_media")
 df_heat_pivot.index = [f"{i}º Tri" for i in df_heat_pivot.index]
 
-plt.rcParams["font.family"] = "sans-serif"
-plt.rcParams["font.sans-serif"] = ["Inter", "Arial"]
-
-fig_heat, ax = plt.subplots(figsize=(14, 3.5), facecolor="none")
-ax.set_facecolor("none")
-
+fig_heat, ax = plt.subplots(figsize=(14, 3.5))
 sns.heatmap(
     df_heat_pivot,
     annot=True,
@@ -716,25 +631,18 @@ sns.heatmap(
     linewidths=0.5,
     ax=ax,
     cbar_kws={"label": "Taxa (%)"},
-    annot_kws={"size": 11, "weight": "medium"},
+    annot_kws={"size": 11},
 )
-ax.set_title(
-    "Taxa Média de Desemprego por Trimestre e Ano (%)",
-    fontsize=13,
-    fontweight="bold",
-    pad=12,
-    color="#4A148C",
-)
-ax.set_xlabel("Ano", fontsize=11, color="#2A0845")
-ax.set_ylabel("Trimestre", fontsize=11, color="#2A0845")
-ax.tick_params(colors="#2A0845")
+ax.set_title("Taxa Média de Desemprego por Trimestre e Ano (%)", fontsize=13, fontweight="bold", pad=12)
+ax.set_xlabel("Ano", fontsize=11)
+ax.set_ylabel("Trimestre", fontsize=11)
 plt.tight_layout()
 st.pyplot(fig_heat)
 plt.close()
 
 st.markdown(
     """<div class="insight-box">
-    📌 <b>Interpretação:</b> O heatmap reveals sazonalidade clara: o 1º trimestre (jan–mar) 
+    📌 <b>Interpretação:</b> O heatmap revela sazonalidade clara: o 1º trimestre (jan–mar) 
     tende a exibir taxas levemente mais altas, reflexo das demissões pós-festas e recomposição 
     do mercado. O pico histórico ocorre entre 2016 e 2018. A trajetória de queda a partir de 
     2019 é visível, com interrupção em 2020 (COVID-19) e retomada nos anos seguintes.
@@ -742,10 +650,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown(
-    '<p class="section-header">💰 5. Relação entre Renda Média e Taxa de Desemprego</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. DISPERSÃO — RENDA × DESEMPREGO
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">💰 5. Relação entre Renda Média e Taxa de Desemprego</p>', unsafe_allow_html=True)
 
 col_d1, col_d2 = st.columns([3, 2])
 
@@ -767,13 +675,13 @@ with col_d1:
         opacity=0.65,
     )
     fig_scatter.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=420,
         title_font_size=14,
         legend=dict(orientation="h", yanchor="bottom", y=-0.25),
     )
+    # Linha de tendência
     z = np.polyfit(df["renda_media"], df["taxa_desemprego"], 1)
     p = np.poly1d(z)
     x_range = np.linspace(df["renda_media"].min(), df["renda_media"].max(), 100)
@@ -789,12 +697,10 @@ with col_d1:
     st.plotly_chart(fig_scatter, use_container_width=True)
 
 with col_d2:
+    # Relação inflação × desemprego
     df_inf = (
         df.groupby("ano")
-        .agg(
-            taxa_media=("taxa_desemprego", "mean"),
-            inflacao_media=("inflacao", "mean"),
-        )
+        .agg(taxa_media=("taxa_desemprego", "mean"), inflacao_media=("inflacao", "mean"))
         .reset_index()
     )
     fig_inf = make_subplots(specs=[[{"secondary_y": True}]])
@@ -821,9 +727,8 @@ with col_d2:
     )
     fig_inf.update_layout(
         title="Desemprego × Inflação (visão anual)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=420,
         title_font_size=14,
         legend=dict(orientation="h", yanchor="bottom", y=-0.22),
@@ -843,20 +748,17 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown(
-    '<p class="section-header">🏭 6. Análise por Setor Econômico</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. ANÁLISE POR SETOR ECONÔMICO
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">🏭 6. Análise por Setor Econômico</p>', unsafe_allow_html=True)
 
 col_s1, col_s2 = st.columns(2)
 
 with col_s1:
     df_setor = (
         df.groupby("setor_predominante")
-        .agg(
-            taxa_media=("taxa_desemprego", "mean"),
-            renda_media=("renda_media", "mean"),
-        )
+        .agg(taxa_media=("taxa_desemprego", "mean"), renda_media=("renda_media", "mean"))
         .reset_index()
         .sort_values("taxa_media", ascending=False)
     )
@@ -868,20 +770,13 @@ with col_s1:
         text="taxa_media",
         labels={"setor_predominante": "Setor", "taxa_media": "Taxa Média (%)"},
         title="Taxa Média de Desemprego por Setor Econômico",
-        color_discrete_sequence=[
-            "#4A148C",
-            "#7B1FA2",
-            "#9C27B0",
-            "#BA68C8",
-            "#E1BEE7",
-        ],
+        color_discrete_sequence=["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
     )
     fig_setor.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
     fig_setor.update_layout(
         showlegend=False,
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=360,
         title_font_size=14,
         yaxis=dict(range=[0, df_setor["taxa_media"].max() * 1.25]),
@@ -902,28 +797,21 @@ with col_s2:
         markers=True,
         labels={"ano": "Ano", "taxa_media": "Taxa (%)", "setor_predominante": "Setor"},
         title="Evolução do Desemprego por Setor (anual)",
-        color_discrete_sequence=[
-            "#4A148C",
-            "#7B1FA2",
-            "#9C27B0",
-            "#BA68C8",
-            "#E1BEE7",
-        ],
+        color_discrete_sequence=["#4A148C", "#7B1FA2", "#9C27B0", "#BA68C8", "#E1BEE7"]
     )
     fig_setor_linha.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=360,
         title_font_size=14,
         legend=dict(orientation="h", yanchor="bottom", y=-0.35),
     )
     st.plotly_chart(fig_setor_linha, use_container_width=True)
 
-st.markdown(
-    '<p class="section-header">💵 7. Evolução da Renda Média</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. ANÁLISE DA RENDA MÉDIA
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">💵 7. Evolução da Renda Média</p>', unsafe_allow_html=True)
 
 df_renda_ano = (
     df.groupby(["ano", "regiao"])
@@ -941,28 +829,23 @@ fig_renda = px.area(
     title="Evolução da Renda Média por Região (2015–2024)",
 )
 fig_renda.update_layout(
-    plot_bgcolor="rgba(0,0,0,0)",
-    paper_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Inter"),
+    plot_bgcolor="white",
+    paper_bgcolor="white",
     height=360,
     title_font_size=14,
     legend=dict(orientation="h", yanchor="bottom", y=-0.22),
 )
 st.plotly_chart(fig_renda, use_container_width=True)
 
-st.markdown(
-    '<p class="section-header">📋 8. Tabela Dinâmica — Exploração Detalhada</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. TABELA DINÂMICA DETALHADA
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">📋 8. Tabela Dinâmica — Exploração Detalhada</p>', unsafe_allow_html=True)
 
-st.markdown(
-    "Utilize a tabela abaixo para explorar os dados filtrados em detalhe, ordenar colunas e investigar registros específicos."
-)
+st.markdown("Utilize a tabela abaixo para explorar os dados filtrados em detalhe, ordenar colunas e investigar registros específicos.")
 
 df_tabela = (
-    df.groupby(
-        ["ano", "trimestre", "regiao", "uf", "setor_predominante", "nivel_risco"]
-    )
+    df.groupby(["ano", "trimestre", "regiao", "uf", "setor_predominante", "nivel_risco"])
     .agg(
         taxa_media=("taxa_desemprego", "mean"),
         renda_media=("renda_media", "mean"),
@@ -975,17 +858,8 @@ df_tabela = (
 )
 
 df_tabela.columns = [
-    "Ano",
-    "Trimestre",
-    "Região",
-    "UF",
-    "Setor",
-    "Nível de Risco",
-    "Taxa Desemp. (%)",
-    "Renda Média (R$)",
-    "Desempregados",
-    "Vagas Formais",
-    "Inflação (%)",
+    "Ano", "Trimestre", "Região", "UF", "Setor", "Nível de Risco",
+    "Taxa Desemp. (%)", "Renda Média (R$)", "Desempregados", "Vagas Formais", "Inflação (%)",
 ]
 df_tabela["Taxa Desemp. (%)"] = df_tabela["Taxa Desemp. (%)"].round(2)
 df_tabela["Renda Média (R$)"] = df_tabela["Renda Média (R$)"].round(2)
@@ -1005,14 +879,15 @@ st.download_button(
     mime="text/csv",
 )
 
-st.markdown(
-    '<p class="section-header">🔍 9. Interpretação Econômica e Períodos de Crise</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 9. INTERPRETAÇÃO ECONÔMICA E PERÍODOS DE CRISE
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">🔍 9. Interpretação Econômica e Períodos de Crise</p>', unsafe_allow_html=True)
 
 col_int1, col_int2 = st.columns(2)
 
 with col_int1:
+    # Taxa anual com marcação de crise
     df_anual = df.groupby("ano")["taxa_desemprego"].mean().reset_index()
     df_anual.columns = ["ano", "taxa_media"]
 
@@ -1028,10 +903,11 @@ with col_int1:
         )
     )
 
+    # Faixas de crise e recuperação
     eventos = [
-        (2015, 2016, "rgba(123,31,162,0.1)", "Crise 2015–16"),
-        (2020, 2021, "rgba(74,20,140,0.1)", "Pandemia 2020"),
-        (2022, 2024, "rgba(225,190,231,0.2)", "Recuperação"),
+        (2015, 2016, "rgba(123,31,162,0.12)", "Crise 2015–16"),
+        (2020, 2021, "rgba(74,20,140,0.12)", "Pandemia 2020"),
+        (2022, 2024, "rgba(225,190,231,0.25)", "Recuperação"),
     ]
     for x0, x1, cor, rotulo in eventos:
         fig_crise.add_vrect(
@@ -1044,16 +920,14 @@ with col_int1:
             annotation_text=rotulo,
             annotation_position="top left",
             annotation_font_size=11,
-            annotation_font_family="Inter",
         )
 
     fig_crise.update_layout(
         title="Taxa Anual com Marcação de Crises e Recuperação",
         xaxis_title="Ano",
         yaxis_title="Taxa Média (%)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         height=380,
         title_font_size=14,
     )
@@ -1064,20 +938,25 @@ with col_int2:
         """
         **Cronologia dos principais eventos econômicos:**
 
-        🔴 **2015–2016 — Crise econômica** Recessão severa, ajuste fiscal, inflação alta e desemprego em ascensão. Taxa superou 12% na média nacional.
+        🔴 **2015–2016 — Crise econômica** Recessão severa, ajuste fiscal, inflação alta e desemprego em ascensão.
+        Taxa superou 12% na média nacional.
 
-        📉 **2017–2019 — Lenta recuperação** Desemprego ainda elevado, mas em queda gradual. Reformas estruturais (trabalhista, previdenciária) iniciam recomposição do mercado.
+        📉 **2017–2019 — Lenta recuperação** Desemprego ainda elevado, mas em queda gradual. Reformas estruturais
+        (trabalhista, previdenciária) iniciam recomposição do mercado.
 
-        🦠 **2020 — Pandemia de COVID-19** Pico histórico de desemprego. Programas emergenciais (Auxílio Emergencial, BEm) atenuaram o impacto, mas o mercado informal foi severamente afetado.
+        🦠 **2020 — Pandemia de COVID-19** Pico histórico de desemprego. Programas emergenciais (Auxílio Emergencial,
+        BEm) atenuaram o impacto, mas o mercado informal foi severamente afetado.
 
-        🟢 **2021–2024 — Recuperação e recomposição** Queda consistente da taxa de desemprego. Retomada das vagas formais, especialmente em Serviços e Comércio. Inflação pressionada pela recuperação e pela guerra na Ucrânia (2022), mas mercado de trabalho resistiu.
+        🟢 **2021–2024 — Recuperação e recomposição** Queda consistente da taxa de desemprego. Retomada das vagas formais,
+        especialmente em Serviços e Comércio. Inflação pressionada pela recuperação
+        e pela guerra na Ucrânia (2022), mas mercado de trabalho resistiu.
         """
     )
 
-st.markdown(
-    '<p class="section-header">🏁 10. Conclusão Executiva</p>',
-    unsafe_allow_html=True,
-)
+# ─────────────────────────────────────────────────────────────────────────────
+# 10. CONCLUSÃO EXECUTIVA
+# ─────────────────────────────────────────────────────────────────────────────
+st.markdown('<p class="section-header">🏁 10. Conclusão Executiva</p>', unsafe_allow_html=True)
 
 st.markdown(
     f"""
@@ -1088,7 +967,7 @@ st.markdown(
     desigualdades regionais e alta sensibilidade a choques econômicos. Os principais achados são:<br><br>
 
     ✅ <b>Desigualdade regional persistente:</b> Norte e Nordeste apresentaram taxas consistentemente 
-    maiores que Sul e Sudeste, refletindo diferenças estruturais in infraestrutura, educação e 
+    maiores que Sul e Sudeste, refletindo diferenças estruturais em infraestrutura, educação e 
     diversificação econômica.<br><br>
 
     ✅ <b>Dois grandes choques:</b> A recessão de 2015–2016 e a pandemia de 2020 foram os principais 
@@ -1113,7 +992,8 @@ st.markdown(
 )
 
 st.markdown(
-    "<br><center><small style='color:#b1a7b8; font-family: Inter;'>Projeto G2 — Tema 4 | "
+    "<br><center><small style='color:#aaa;'>Projeto G2 — Tema 4 | "
     "Análise de Dados com Python · Pandas · Matplotlib · Seaborn · Plotly · Streamlit</small></center>",
     unsafe_allow_html=True,
 )
+
